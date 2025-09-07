@@ -12,10 +12,9 @@ import com.yoesuv.kmplanguage.feature.settings.SettingScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
 fun App() {
     MaterialTheme {
-        Scaffold {
+        Scaffold { innerPadding ->
             val navController = rememberNavController()
 
             NavHost(
@@ -23,11 +22,11 @@ fun App() {
                 startDestination = AppRoute.Home
             ) {
                 composable<AppRoute.Home> {
-                    HomeScreen(navController)
+                    HomeScreen(navController, innerPadding)
                 }
 
                 composable<AppRoute.Settings> {
-                    SettingScreen()
+                    SettingScreen(navController, innerPadding)
                 }
             }
         }
