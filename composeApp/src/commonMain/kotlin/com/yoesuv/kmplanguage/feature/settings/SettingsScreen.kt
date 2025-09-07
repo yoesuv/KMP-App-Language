@@ -10,7 +10,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kmpapplanguage.composeapp.generated.resources.Res
 import kmpapplanguage.composeapp.generated.resources.change_language
@@ -21,13 +23,22 @@ import org.jetbrains.compose.resources.stringResource
 fun SettingScreen(nav: NavHostController, padding: PaddingValues = PaddingValues()) {
     Column(
         modifier = Modifier.padding(padding)
+            .padding(24.dp)
     ) {
-        Text(stringResource(Res.string.language))
+        Text(
+            stringResource(Res.string.language), style = TextStyle(
+                fontSize = 16.sp
+            )
+        )
         Spacer(Modifier.height(16.dp))
         Row {
             Text("")
             Button(onClick = {}, content = {
-                Text(stringResource(Res.string.change_language))
+                Text(
+                    stringResource(Res.string.change_language), style = TextStyle(
+                        fontSize = 16.sp
+                    )
+                )
             })
         }
     }

@@ -23,10 +23,11 @@ import org.jetbrains.compose.resources.stringResource
 fun HomeScreen(nav: NavHostController, padding: PaddingValues = PaddingValues()) {
     Column(
         modifier = Modifier.padding(padding)
+            .padding(24.dp)
     ) {
         Text(
             stringResource(Res.string.home_information), style = TextStyle(
-                fontSize = 14.sp
+                fontSize = 16.sp
             )
         )
         Spacer(Modifier.height(16.dp))
@@ -35,7 +36,7 @@ fun HomeScreen(nav: NavHostController, padding: PaddingValues = PaddingValues())
         }, content = {
             Text(
                 stringResource(Res.string.settings), style = TextStyle(
-                    fontSize = 14.sp
+                    fontSize = 16.sp
                 )
             )
         })
