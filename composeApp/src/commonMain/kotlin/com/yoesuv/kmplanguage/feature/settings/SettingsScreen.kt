@@ -24,7 +24,11 @@ import kmpapplanguage.composeapp.generated.resources.language
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun SettingScreen(nav: NavHostController, padding: PaddingValues = PaddingValues()) {
+fun SettingScreen(
+    nav: NavHostController,
+    padding: PaddingValues = PaddingValues(),
+    onLanguageSelected: (String) -> Unit
+) {
     var showLanguageDialog by remember { mutableStateOf(false) }
     
     Column(
@@ -52,11 +56,11 @@ fun SettingScreen(nav: NavHostController, padding: PaddingValues = PaddingValues
     if (showLanguageDialog) {
         LanguageSelectionDialog(
             onDismiss = { showLanguageDialog = false },
-            onLanguageSelected = { language ->
-                // TODO: Implement language change logic
-                println("Selected language: $language")
+            onLanguageSelected = { code ->
+                onLanguageSelected(code)
                 showLanguageDialog = false
             }
         )
     }
 }
+

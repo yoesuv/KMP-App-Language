@@ -14,6 +14,7 @@ import kmpapplanguage.composeapp.generated.resources.english
 import kmpapplanguage.composeapp.generated.resources.indonesian
 import kmpapplanguage.composeapp.generated.resources.select_language
 import org.jetbrains.compose.resources.stringResource
+import com.yoesuv.kmplanguage.Language
 
 @Composable
 fun LanguageSelectionDialog(
@@ -33,7 +34,7 @@ fun LanguageSelectionDialog(
         text = {
             Column {
                 TextButton(
-                    onClick = { onLanguageSelected("English") }
+                    onClick = { onLanguageSelected(Language.English.isoFormat) }
                 ) {
                     Text(
                         stringResource(Res.string.english), style = TextStyle(
@@ -42,7 +43,7 @@ fun LanguageSelectionDialog(
                     )
                 }
                 TextButton(
-                    onClick = { onLanguageSelected("Indonesian") }
+                    onClick = { onLanguageSelected(Language.Indonesia.isoFormat) }
                 ) {
                     Text(
                         stringResource(Res.string.indonesian), style = TextStyle(
@@ -60,3 +61,4 @@ fun LanguageSelectionDialog(
         }
     )
 }
+

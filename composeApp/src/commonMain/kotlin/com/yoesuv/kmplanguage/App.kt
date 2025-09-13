@@ -16,39 +16,50 @@ import kmpapplanguage.composeapp.generated.resources.app_name
 import kmpapplanguage.composeapp.generated.resources.settings
 import org.jetbrains.compose.resources.stringResource
 
+
 @Composable
 fun App() {
-    MaterialTheme {
-        val navController = rememberNavController()
-        val currentBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = currentBackStackEntry?.destination?.route
+    var lang by remember { mutableStateOf(Language.Indonesia.isoFormat) }
 
-        val title = when (currentRoute) {
-            AppRoute.Home::class.qualifiedName -> stringResource(Res.string.app_name)
-            AppRoute.Settings::class.qualifiedName -> stringResource(Res.string.settings)
-            else -> stringResource(Res.string.app_name)
-        }
+    // Single handler to update both compose-resources and the platform default
+    val onLanguageSelected: (String) -> Unit = { code ->
+        lang = code
+        changeLanguage(code)
+    }
 
-        val canBack = currentRoute != AppRoute.Home::class.qualifiedName
+    LocalizedApp(lang) {
+        MaterialTheme {
+            val navController = rememberNavController()
+            val currentBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = currentBackStackEntry?.destination?.route
 
-        Scaffold(
-            topBar = {
-                AppTopBar(
-                    title = title,
-                    canBack = canBack,
-                    navigateUp = { navController.popBackStack() })
+            val title = when (currentRoute) {
+                AppRoute.Home::class.qualifiedName -> stringResource(Res.string.app_name)
+                AppRoute.Settings::class.qualifiedName -> stringResource(Res.string.settings)
+                else -> stringResource(Res.string.app_name)
             }
-        ) { innerPadding ->
-            NavHost(
-                navController = navController,
-                startDestination = AppRoute.Home
-            ) {
-                composable<AppRoute.Home> {
-                    HomeScreen(navController, innerPadding)
-                }
 
-                composable<AppRoute.Settings> {
-                    SettingScreen(navController, innerPadding)
+            val canBack = currentRoute != AppRoute.Home::class.qualifiedName
+
+            Scaffold(
+                topBar = {
+                    AppTopBar(
+                        title = title,
+                        canBack = canBack,
+                        navigateUp = { navController.popBackStack() })
+                }
+            ) { innerPadding ->
+                NavHost(
+                    navController = navController,
+                    startDestination = AppRoute.Home
+                ) {
+                    composable<AppRoute.Home> {
+                        HomeScreen(navController, innerPadding)
+                    }
+
+                    composable<AppRoute.Settings> {
+                        SettingScreen(navController, innerPadding, onLanguageSelected)
+                    }
                 }
             }
         }
