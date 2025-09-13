@@ -43,3 +43,7 @@ actual fun changeLanguage(language: String) {
     val locale = Locale(language)
     Locale.setDefault(locale)
 }
+
+actual fun getSavedLanguage(): String {
+    return Locale.getDefault().language
+}

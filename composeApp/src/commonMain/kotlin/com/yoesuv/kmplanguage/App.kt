@@ -19,7 +19,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun App() {
-    var lang by remember { mutableStateOf(Language.Indonesia.isoFormat) }
+    // Initialize with saved language or default
+    var lang by remember { mutableStateOf(getSavedLanguage()) }
 
     // Single handler to update both compose-resources and the platform default
     val onLanguageSelected: (String) -> Unit = { code ->

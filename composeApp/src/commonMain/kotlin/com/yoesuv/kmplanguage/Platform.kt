@@ -15,3 +15,5 @@ expect object LocalAppLocale {
 }
 
 expect fun changeLanguage(language: String)
+
+expect fun getSavedLanguage(): String
