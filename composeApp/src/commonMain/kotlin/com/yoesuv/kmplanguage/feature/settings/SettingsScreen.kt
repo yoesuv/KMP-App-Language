@@ -34,6 +34,7 @@ fun SettingScreen(
     onLanguageSelected: (String) -> Unit
 ) {
     var showLanguageDialog by remember { mutableStateOf(false) }
+    val buttonText = stringResource(Res.string.change_language)
 
     Column(
         modifier = Modifier.padding(padding)
@@ -52,11 +53,7 @@ fun SettingScreen(
         ) {
             Text(getSavedLanguage(), style = TextStyle(fontSize = 16.sp))
             Button(onClick = { showLanguageDialog = true }, content = {
-                Text(
-                    stringResource(Res.string.change_language), style = TextStyle(
-                        fontSize = 16.sp
-                    )
-                )
+                Text(buttonText, style = TextStyle(fontSize = 16.sp))
             })
         }
     }
