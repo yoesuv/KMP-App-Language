@@ -1,11 +1,13 @@
 package com.yoesuv.kmplanguage
 
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidedValue
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
+import androidx.core.os.LocaleListCompat
 import java.util.Locale
+import androidx.compose.ui.platform.LocalResources
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"
@@ -30,9 +32,10 @@ actual object LocalAppLocale {
             null -> default!!
             else -> Locale(value)
         }
+        // Keep legacy Locale.setDefault to satisfy components relying on it
         Locale.setDefault(new)
         configuration.setLocale(new)
-        val resources = LocalContext.current.resources
+        val resources = LocalResources.current
 
         resources.updateConfiguration(configuration, resources.displayMetrics)
         return LocalConfiguration.provides(configuration)
@@ -40,10 +43,15 @@ actual object LocalAppLocale {
 }
 
 actual fun changeLanguage(language: String) {
-    val locale = Locale(language)
-    Locale.setDefault(locale)
+    val locales = LocaleListCompat.forLanguageTags(language)
+    AppCompatDelegate.setApplicationLocales(locales)
 }
 
 actual fun getSavedLanguage(): String {
-    return Locale.getDefault().language
+    val tags = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+    if (tags.isEmpty()) {
+        return Locale.getDefault().language
+    }
+    // Return primary language subtag (e.g., "en" from "en-US") to match existing usage
+    return tags.substringBefore('-')
 }
