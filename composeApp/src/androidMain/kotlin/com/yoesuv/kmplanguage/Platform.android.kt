@@ -1,6 +1,7 @@
 package com.yoesuv.kmplanguage
 
 import android.os.Build
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ProvidedValue
@@ -22,18 +23,16 @@ actual object LocalAppLocale {
 
     @Composable
     actual infix fun provides(value: String?): ProvidedValue<*> {
-        val configuration = LocalConfiguration.current
+        val currentConfig = LocalConfiguration.current
 
         if (default == null) {
             default = Locale.getDefault()
         }
 
-        val new = when(value) {
-            null -> default!!
-            else -> Locale(value)
-        }
-        // Keep legacy Locale.setDefault to satisfy components relying on it
+        val tag = value?.trim().orEmpty()
+        val new = if (tag.isEmpty()) default!! else Locale.forLanguageTag(tag)
         Locale.setDefault(new)
+        val configuration = Configuration(currentConfig)
         configuration.setLocale(new)
         val resources = LocalResources.current
 
@@ -49,9 +48,10 @@ actual fun changeLanguage(language: String) {
 
 actual fun getSavedLanguage(): String {
     val tags = AppCompatDelegate.getApplicationLocales().toLanguageTags()
-    if (tags.isEmpty()) {
-        return Locale.getDefault().language
+    val primary = if (tags.isEmpty()) {
+        Locale.getDefault().language
+    } else {
+        tags.substringBefore('-')
     }
-    // Return primary language subtag (e.g., "en" from "en-US") to match existing usage
-    return tags.substringBefore('-')
+    return primary
 }
