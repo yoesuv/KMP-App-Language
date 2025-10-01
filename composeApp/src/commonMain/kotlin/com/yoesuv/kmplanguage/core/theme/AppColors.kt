@@ -4,4 +4,5 @@ import androidx.compose.ui.graphics.Color
 
 object AppColors {
     val Primary = Color(0xFF673AB7)
+    val Red500 = Color(0xFFF44336)
 }

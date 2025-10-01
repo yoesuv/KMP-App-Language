@@ -1,7 +1,9 @@
 package com.yoesuv.kmplanguage
 
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -9,6 +11,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yoesuv.kmplanguage.components.AppTopBar
 import com.yoesuv.kmplanguage.core.route.AppRoute
+import com.yoesuv.kmplanguage.core.theme.AppColors
 import com.yoesuv.kmplanguage.feature.home.HomeScreen
 import com.yoesuv.kmplanguage.feature.settings.SettingScreen
 import kmpapplanguage.composeapp.generated.resources.Res
@@ -29,7 +32,11 @@ fun App() {
     }
 
     LocalizedApp(lang) {
-        MaterialTheme {
+        MaterialTheme(
+            colorScheme = lightColorScheme(
+                primary = AppColors.Primary
+            )
+        ) {
             val navController = rememberNavController()
             val currentBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = currentBackStackEntry?.destination?.route
