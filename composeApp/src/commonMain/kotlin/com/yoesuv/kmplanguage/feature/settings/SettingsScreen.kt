@@ -62,7 +62,7 @@ fun SettingScreen(
         LanguageSelectionDialog(
             onDismiss = { showLanguageDialog = false },
             onLanguageSelected = { code ->
-                if (code != currentLanguage) {
+                if (code != getSavedLanguage()) {
                     onLanguageSelected(code)
                 }
                 showLanguageDialog = false
