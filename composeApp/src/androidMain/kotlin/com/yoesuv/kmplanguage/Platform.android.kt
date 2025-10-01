@@ -67,8 +67,8 @@ actual fun getSavedLanguage(): String {
     } else {
         tags.substringBefore('-')
     }
-    // If still empty, default to Indonesian to mirror iOS default
-    return primary.ifEmpty { Language.Indonesia.isoFormat }
+    // If still empty, default to English to mirror iOS default
+    return primary.ifEmpty { Language.English.isoFormat }
 }
 
 // ---- SharedPreferences + Context setup ----

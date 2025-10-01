@@ -59,6 +59,6 @@ actual fun getSavedLanguage(): String {
     return if (savedLanguages?.isNotEmpty() == true) {
         savedLanguages.first() as String
     } else {
-        Language.Indonesia.isoFormat // Default to Indonesian
+        Language.English.isoFormat // Default to English
     }
 }
