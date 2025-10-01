@@ -32,9 +32,6 @@ actual object LocalAppLocale {
     
     private val LocalAppLocale = staticCompositionLocalOf { getSavedLanguage() }
     
-    actual val current: String
-        @Composable get() = LocalAppLocale.current
-
     @Composable
     actual infix fun provides(value: String?): ProvidedValue<*> {
         val new = value ?: getSavedLanguage()

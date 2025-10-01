@@ -65,7 +65,7 @@ fun App() {
                     }
 
                     composable<AppRoute.Settings> {
-                        SettingScreen(navController, innerPadding, onLanguageSelected)
+                        SettingScreen(innerPadding, onLanguageSelected)
                     }
                 }
             }

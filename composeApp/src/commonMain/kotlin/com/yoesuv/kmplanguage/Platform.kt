@@ -10,7 +10,6 @@ interface Platform {
 expect fun getPlatform(): Platform
 
 expect object LocalAppLocale {
-    val current: String @Composable get
     @Composable infix fun provides(value: String?): ProvidedValue<*>
 }
 

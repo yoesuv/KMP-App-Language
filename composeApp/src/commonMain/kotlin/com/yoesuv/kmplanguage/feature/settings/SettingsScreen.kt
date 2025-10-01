@@ -29,7 +29,6 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SettingScreen(
-    nav: NavHostController,
     padding: PaddingValues = PaddingValues(),
     onLanguageSelected: (String) -> Unit
 ) {
