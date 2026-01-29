@@ -46,7 +46,7 @@ fun App() {
                 else -> stringResource(Res.string.app_name)
             }
 
-            val canBack = currentRoute != AppRoute.Home::class.qualifiedName
+            val canBack = navController.previousBackStackEntry != null
 
             Scaffold(
                 topBar = {
