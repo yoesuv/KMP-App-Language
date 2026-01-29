@@ -61,7 +61,7 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0.0"
+        versionName = "1.0.1"
         setProperty("archivesBaseName", "$applicationId-v$versionName")
     }
     packaging {
@@ -70,8 +70,15 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        getByName("debug") {
             isMinifyEnabled = false
+        }
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
