@@ -13,6 +13,12 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
+        iosTarget.compilations.all {
+            compilerOptions.options.freeCompilerArgs.addAll(
+                "-Xexpect-actual-classes",
+                "-Xbinary=bundleId=com.yoesuv.kmplanguage"
+            )
+        }
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
